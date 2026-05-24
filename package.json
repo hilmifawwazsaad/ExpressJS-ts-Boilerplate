@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
@@ -11,15 +15,12 @@
     "prepare": "husky",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "lint:strict": "eslint --max-warnings 0",
-    "format": "prettier --write \"src/**/*.{ts,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,json}\"",
+    "lint:strict": "eslint --max-warnings=0 --no-warn-ignored",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "format:write": "prettier --write"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.28.2",
   "dependencies": {
     "express": "^5.2.1"
   },

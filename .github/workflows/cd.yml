@@ -1,0 +1,82 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows:
+      - CI
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # ------------------------------------------------
+      # OPTION 1: Deploy to Vercel
+      # Secrets needed:
+      #   - VERCEL_TOKEN
+      #   - VERCEL_ORG_ID
+      #   - VERCEL_PROJECT_ID
+      # ------------------------------------------------
+      # - name: Deploy to Vercel
+      #   run: |
+      #     pnpm add -g vercel
+      #     vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      #     vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      #     vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+      #   env:
+      #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # ------------------------------------------------
+      # OPTION 2: Deploy to VPS via SSH
+      # Secrets needed:
+      #   - SSH_HOST
+      #   - SSH_USER
+      #   - SSH_PRIVATE_KEY
+      # ------------------------------------------------
+      # - name: Deploy to VPS
+      #   uses: appleboy/ssh-action@v1
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd /var/www/your-app
+      #       git pull origin main
+      #       pnpm install --frozen-lockfile
+      #       pnpm build
+      #       pm2 restart your-app
+
+      # ------------------------------------------------
+      # OPTION 3: Build & Push Docker Image
+      # Secrets needed:
+      #   - DOCKER_USERNAME
+      #   - DOCKER_PASSWORD
+      # ------------------------------------------------
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/your-app:latest
