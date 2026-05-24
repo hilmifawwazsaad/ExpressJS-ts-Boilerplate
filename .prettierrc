@@ -1,0 +1,19 @@
+{
+  "arrowParens": "always",
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "semi": true,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.{ts,tsx}",
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ]
+}
