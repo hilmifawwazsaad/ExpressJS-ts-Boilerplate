@@ -1,3 +1,29 @@
-node_modules/
-dist/
+# Build outputs
+dist
+
+# Dependencies
+node_modules
+
+# Package manager files
 pnpm-lock.yaml
+pnpm-workspace.yaml
+package-lock.json
+yarn.lock
+
+# Git hooks
+.husky
+
+# GitHub Actions
+.github/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# Coverage
+coverage
