@@ -1,15 +1,14 @@
 # AGENTS.md
 
-Before writing any code:
+Read the relevant skill file before writing any code.
+Check `package.json` for available libraries — never import what isn't installed.
 
-1. Read `.agents/software-principles/SKILL.md` — **mandatory for every task**
-2. Read the domain skill file from the table below
-3. Check `package.json` — never import libraries that aren't installed
+**Stack:** Express.js 5 · Node.js · TypeScript 6 (strict) · pnpm · ts-node · nodemon · ESLint 10 · Prettier · Husky · commitlint — no ORM or auth library by default.
 
-**Stack:** Express.js 5 · Node.js · TypeScript 6 (strict) · pnpm · ts-node · nodemon · ESLint 10 · Prettier · Husky · commitlint — no ORM or auth library installed by default.
+**Always read first:** `.agents/software-principles/SKILL.md` — naming, function design, and engineering principles.
 
-| Task domain | When to use                                                                    | Skill file                 |
-| ----------- | ------------------------------------------------------------------------------ | -------------------------- |
-| Backend     | Any server-side code — Express routes, business logic, data access, middleware | `.agents/backend/SKILL.md` |
+| Domain                                                         | Skill file                 |
+| -------------------------------------------------------------- | -------------------------- |
+| Backend — routes, handlers, services, repositories, middleware | `.agents/backend/SKILL.md` |
 
 Convention missing from skill file → ask before inventing.
